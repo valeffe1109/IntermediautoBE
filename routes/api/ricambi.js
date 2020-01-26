@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 const Ricambio = require('../../models/Ricambio');
 
@@ -22,7 +23,7 @@ router.get('/:codice', async (req, res) => {
 	}
 });
 
-router.post('/', [ check('codice', 'Codice is required').not().isEmpty() ], async (req, res) => {
+router.post('/', [ auth, [ check('codice', 'Codice is required').not().isEmpty() ] ], async (req, res) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
