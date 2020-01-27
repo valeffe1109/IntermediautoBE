@@ -13,8 +13,8 @@ const Admin = require('../../models/Admin');
 // @access   Public
 router.get('/', auth, async (req, res) => {
 	try {
-		const Admin = await Admin.findById(req.Admin.id).select('-password');
-		res.json(Admin);
+		const admin = await Admin.findById(req.admin.id).select('-password');
+		res.json(admin);
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send('Server Error');
@@ -36,21 +36,21 @@ router.post(
 		const { email, password } = req.body;
 
 		try {
-			let Admin = await Admin.findOne({ email });
+			let admin = await Admin.findOne({ email });
 
-			if (!Admin) {
+			if (!admin) {
 				return res.status(400).json({ errors: [ { msg: 'Invalid Credentials' } ] });
 			}
 
-			const isMatch = await bcrypt.compare(password, Admin.password);
+			const isMatch = await bcrypt.compare(password, admin.password);
 
 			if (!isMatch) {
 				return res.status(400).json({ errors: [ { msg: 'Invalid Credentials' } ] });
 			}
 
 			const payload = {
-				Admin: {
-					id: Admin.id
+				admin: {
+					id: admin.id
 				}
 			};
 
