@@ -28,6 +28,7 @@ router.post('/', [ auth, [ check('codice', 'Codice is required').not().isEmpty()
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	}
+
 	try {
 		const newRicambio = new Ricambio({
 			nome: req.body.nome,

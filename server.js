@@ -7,6 +7,8 @@ const server = express();
 //Connect to MongoDB database
 connectDB();
 
+//Set Storage Engine
+
 //init Middleware
 server.use(express.json({ extended: false }));
 server.use(cors());
