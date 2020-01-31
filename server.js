@@ -14,7 +14,7 @@ server.use(express.json({ extended: false }));
 server.use(cors());
 
 server.use('/api/auth', require('./routes/api/auth'));
-server.use('/api/ricambi', require('./routes/api/ricambi'));
+server.use('/api/auto', require('./routes/api/auto'));
 
 const PORT = process.env.PORT || 5000;
 
